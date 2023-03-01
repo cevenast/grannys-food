@@ -6,8 +6,6 @@ function App() {
   return (
     <div className="App">
       <Nav isLoggedIn={true}></Nav>
-      <section>
-      </section>
     </div>
   )
 }
