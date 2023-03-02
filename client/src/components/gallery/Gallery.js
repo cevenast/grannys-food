@@ -18,7 +18,6 @@ export default function Gallery(props){
             <Card title="Completo Italiano" user="guatonparrillero" tags={['chile','italia']} imgSrc="./completo.jpg" id="bc6e89ac9db79h797" description="Hot dog variation eaten in Chile, usually served with ingredients such as chopped tomatoes, avocados, mayonnaise,"/>
             <Card title="Baba Ganoush" user="cevenast" tags={['india']} imgSrc="./baba-ganoush.jpg" id="abf12bc21d3123faab1232" description="Smoky, rich, and creamy eggplant dip, mixing tender roasted eggplant and nutty tahini with garlic, citrus, and spices."/>
             <Card title="Completo Italiano" user="guatonparrillero" tags={['chile','italia']} imgSrc="./completo.jpg" id="bc6e89ac9db79h797" description="Hot dog variation eaten in Chile, usually served with ingredients such as chopped tomatoes, avocados, mayonnaise,"/>
-
         </section>
     )
 }

@@ -1,6 +1,6 @@
-export default function Hamburger({link, onHamburgerClick}){
+export default function Hamburger({handleHamburgerClick, handleHamburgerBlur}){
     return(
-        <button type="button" id="hamburger-btn" onClick={onHamburgerClick} className="
+        <button type="button" id="hamburger-btn" onClick={handleHamburgerClick} onBlur={handleHamburgerBlur} className="
                                                                         inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg
                                                                         sm:hidden
                                                                         hover:bg-gray-100 

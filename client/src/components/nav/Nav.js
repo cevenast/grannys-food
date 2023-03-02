@@ -22,12 +22,18 @@ export default function Nav({isLoggedIn}){
   ///
   // Makes the dropdown menu appear or disappear on smaller devices 
   ///
+
+    const handleHamburgerBlur = () => {
+      setHamburgerShown(false)
+    }
+    
     const handleHamburgerClick = () => {
-      setHamburgerShown(!hamburgerShown)
+      hamburgerShown ? setHamburgerShown(false) : setHamburgerShown(true)
     }
   
+
   return(
-      <nav className="flex justify-between max-w-3xl mx-auto relative">
+      <nav className="flex justify-between max-w-3xl mx-auto">
 
         {/* Logo */}
         <section className="">
@@ -44,7 +50,7 @@ export default function Nav({isLoggedIn}){
           {user}
 
           {/* Hamburger Icon */}
-          <Hamburger onHamburgerClick={handleHamburgerClick}/>
+          <Hamburger handleHamburgerClick={handleHamburgerClick}  handleHamburgerBlur={handleHamburgerBlur}/>
 
         </section>
       </nav>
