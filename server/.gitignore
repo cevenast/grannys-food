@@ -1,8 +1,5 @@
-horas.xlsx
-layout.png
-server9
 node_modules
-.env
 Dockerfile
 .dockerignore
 fly.toml
+.env
