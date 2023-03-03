@@ -3,34 +3,34 @@ const mongoose = require('mongoose')
 // Set Schema
 
 const recipeSchema = new mongoose.Schema({
-    title: {
-        type:String,
-        required:true
-    },
-    userName: {
-      type:String,
-      required:true
-    },
-    imgSrc: {
-      type:String,
-      required:true
-    },
-    userId:{
-      type:String,
-      required:true
-    },
-    description: {
-      type:String,
-      required:true
-    },
-    tags:{
-      type:Array,
-    },
-    createdAt: {
-      type: Date,
-      default: Date.now,
-    }
-  })
+  title: {
+    type:String,
+    required:true
+  },
+  userName: {
+    type:String,
+    required:true
+  },
+  imgSrc: {
+    type:String,
+    required:true
+  },
+  userId:{
+    type:String,
+    required:true
+  },
+  description: {
+    type:String,
+    required:true
+  },
+  tags:{
+    type:Array,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  }
+})
 
 // Formats the recipes response, transforming id into a string and removing the __v
 
@@ -41,6 +41,6 @@ recipeSchema.set('toJSON', {
     delete returnedObject.__v
   }
 })
-  
+
 const Recipe = mongoose.model('Recipe', recipeSchema) // Model Definition (constructor)
 module.exports = Recipe
