@@ -7,17 +7,13 @@ const recipeSchema = new mongoose.Schema({
     type:String,
     required:true
   },
-  username: {
-    type:String,
-    required:true
-  },
   imgSrc: {
     type:String,
     required:true
   },
-  userId:{
-    type:String,
-    required:true
+  user:{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
   },
   description: {
     type:String,

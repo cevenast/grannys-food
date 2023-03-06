@@ -14,7 +14,14 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  favoriteRecipes: Array,
+  uploadedRecipes:[{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Blog' // references Blog style documents thanks to Mongoose
+  }],
+  favoriteRecipes:[{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Blog' // references Blog style documents thanks to Mongoose
+  }],
   email:{
     type: String,
     trim: true,

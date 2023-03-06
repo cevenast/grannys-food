@@ -1,11 +1,6 @@
 const express = require('express')
 const app = express()
-//const mongoose = require('mongoose')
-//passport
-//session
-//mongostore
 const methodOverride = require('method-override') // Allows POST requests to be override for other methods like PUT or DELETE
-//flash
 const morgan = require('morgan')
 const cors = require('cors')
 const connectDB = require('./config/mongo')
@@ -39,7 +34,8 @@ app.use('/login', loginRoutes)
 
 // Middleware setup for errors
 
-app.use(middleware.unknownEndpoint) // 404 Unknown Endpoint: Returns error message in JSON format
 app.use(errorHandler)
+app.use(middleware.unknownEndpoint) // 404 Unknown Endpoint: Returns error message in JSON format
+
 
 module.exports = app
