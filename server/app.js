@@ -14,6 +14,7 @@ const usersRoutes = require('./routes/users')
 const loginRoutes = require('./routes/login')
 const logger = require('./utils/logger')
 const middleware = require('./middleware/middleware')
+const errorHandler = require('./middleware/errorHandler')
 
 require('dotenv').config({ path: './config/.env' }) // Use .env file in config folder
 
@@ -39,6 +40,6 @@ app.use('/login', loginRoutes)
 // Middleware setup for errors
 
 app.use(middleware.unknownEndpoint) // 404 Unknown Endpoint: Returns error message in JSON format
-app.use(middleware.errorHandler)
+app.use(errorHandler)
 
 module.exports = app
