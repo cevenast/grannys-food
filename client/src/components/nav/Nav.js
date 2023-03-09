@@ -13,7 +13,7 @@ export default function Nav({isLoggedIn}){
   //
     let user
     if (isLoggedIn){
-      user = <UserMenu/>
+      user = <UserMenu session={isLoggedIn}/>
     }
     else{
       user = <Button backgroundColor="bg-[#4a7b8a]" textColor="text-white" link="">Sign In</Button>
@@ -47,7 +47,7 @@ export default function Nav({isLoggedIn}){
           <NavList hamburgerShown={hamburgerShown}/>
 
           {/* User Menu */}
-          {user}
+          {user} {/* If is Logged in is <UserMenu/>. If not, Sign in <Button>*/}
 
           {/* Hamburger Icon */}
           <Hamburger handleHamburgerClick={handleHamburgerClick}  handleHamburgerBlur={handleHamburgerBlur}/>

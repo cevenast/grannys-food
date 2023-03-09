@@ -1,7 +1,7 @@
 export default function Hamburger({handleHamburgerClick, handleHamburgerBlur}){
     return(
         <button type="button" id="hamburger-btn" onClick={handleHamburgerClick} onBlur={handleHamburgerBlur} className="
-                                                                        inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg
+                                                                        p-2 ml-1 text-gray-500 rounded-lg
                                                                         sm:hidden
                                                                         hover:bg-gray-100 
                                                                         focus:outline-none focus:ring-2 focus:ring-gray-200 
