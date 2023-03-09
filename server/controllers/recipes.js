@@ -2,6 +2,7 @@
 //const User = require('../models/User.js')
 const Recipe = require('../models/recipe')
 const User = require('../models/user')
+const cloudinary = require('../middleware/cloudinary')
 
 
 module.exports = {
@@ -26,17 +27,25 @@ module.exports = {
 
   newRecipe: async (req, res, next) => {
     try{
+      console.log('yesss')
       // Client sends filled formulary for the recipe
       const body = req.body
       // Middleware tokenExtractor checks for token in the headers and sets it to req.token
       // Middleware userExtractor verifies the token and sets the corresponding user to req.user
       const user = await User.findById(req.userId)
 
+      console.log(req.file.path)
+
+      const cloudinaryRes = await cloudinary.uploader.upload(req.file.path)
+
+      console.log(cloudinaryRes)
+
       const newRecipe = new Recipe ({
         title: body.title,
         description: body.description,
         tags: body.tags,
-        imgSrc: 'https://res.cloudinary.com/dwzpy0lxt/image/upload/v1677726373/pastel-de-choclo_gnifbm.jpg',
+        imgSrc: cloudinaryRes.secure_url,
+        cloudinaryId: cloudinaryRes.public_id,
         user: user._id,
         createdAt: new Date()
       })

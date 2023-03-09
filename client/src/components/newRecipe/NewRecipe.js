@@ -1,6 +1,7 @@
 import { useState} from 'react'
 import axios from 'axios'
 import PostTags from './PostTags.js'
+import DragFile from './DragFile.js'
 
 // Try using context hook for the session
 
@@ -8,6 +9,7 @@ export default function NewRecipe(props){
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [tags, setTags] = useState([])
+  const [image, setImage] = useState(null)
 
   const handleTagClick = (event) => {
 
@@ -33,11 +35,11 @@ export default function NewRecipe(props){
   const createRecipe = async (event) => {
     event.preventDefault() // Prevents page from reloading
 
-    const recipe = {
-      title: title,
-      description: description,
-      tags: tags
-    }
+    const recipe = new FormData()
+    recipe.append('title', title)
+    recipe.append('description', description)
+    recipe.append('tags', tags)
+    recipe.append('img', image)
 
     // Takes the token from the localStorage and sets as an Authorization header.
     const token = JSON.parse(window.localStorage.getItem('loggedGrannyUser')).token
@@ -48,18 +50,31 @@ export default function NewRecipe(props){
     await axios.post('/api/recipes', recipe, config)
     setTitle('')
     setDescription('')
-    setTags('')
+    setTags([])
+    setImage([])
+    
   }
 
   return (
     <div>
       <form onSubmit={createRecipe}>
-        <input type="text" name="title" value={title} onChange={(e) => setTitle(e.target.value)}/>
-        <textarea name="description" value={description} onChange={(e) => setDescription(e.target.value)}/>
+        <div>
+          <label for="title" class="form-label">Title</label>
+          <input type="text" name="title" value={title} onChange={(e) => setTitle(e.target.value)}/>
+        </div>
+        <div>
+         <label for="title" class="form-label">Description</label>
+          <textarea name="description" value={description} onChange={(e) => setDescription(e.target.value)}/>
+        </div>
+        <div class="mb-3">
+          <label for="imgUpload" class="form-label">Image</label>
+          <input type="file" class="" accept="image/*" id="imgUpload" name="file" onChange={(e) => setImage(e.target.files[0])}/>
+        </div>
+        <PostTags handleClick={handleTagClick} tags={tags}/>
 
         <button type="submit">SUBMIT RECIPE</button>
       </form>
-      <PostTags handleClick={handleTagClick} tags={tags}/>
+      
     </div>
 
   )

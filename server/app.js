@@ -10,6 +10,7 @@ const loginRoutes = require('./routes/login')
 const logger = require('./utils/logger')
 const middleware = require('./middleware/middleware')
 const errorHandler = require('./middleware/errorHandler')
+require('./middleware/multer')
 
 require('dotenv').config({ path: './config/.env' }) // Use .env file in config folder
 

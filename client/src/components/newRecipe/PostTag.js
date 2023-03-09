@@ -8,8 +8,8 @@ export default function PostTag({ tag, selectedTags }){
   const tags = {
     chile: {name: 'Chile', color:'bg-red-600', unCheckedColor:'bg-red-800', hoverColor:'bg-red-500', textColor:'text-white'},
     argentina: {name: 'Argentina', color:'bg-cyan-400', unCheckedColor:'bg-cyan-600', hoverColor:'bg-cyan-200', textColor:'text-white'},
-    italia:{name:'Italia',color:'bg-[#00cc00]', unCheckedColor:'bg-cyan-600', hoverColor:'bg-[#66cc66]', textColor:'text-white'},
-    india:{name:'India', color:'bg-[#ff671f]', hoverColor:'bg-[#ffaa77]'}
+    italia:{name:'Italia',color:'bg-lime-600', unCheckedColor:'bg-lime-900', hoverColor:'bg-lime-400', textColor:'text-white'},
+    india:{name:'India', color:'bg-[#ff671f]', unCheckedColor:'bg-[#dd4410]', hoverColor:'bg-[#ffaa77]'}
 }
   // Info of the current tag
   const tagInfo = tags[tag]
