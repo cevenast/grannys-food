@@ -3,6 +3,10 @@ import { useState } from 'react'
 export default function UserMenu({session}){
     const [menuShown, setMenuShown] = useState(false)
 
+    const handleLogOut = () => {
+        window.localStorage.clear()
+        window.location.reload(true)
+    }
 
     return(
     <div className="flex items-center md:order-2 relative">
@@ -33,7 +37,10 @@ export default function UserMenu({session}){
                     <a href="/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Favourites</a>
                 </li>
                 <li>
-                    <button className="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"> Log out</button>
+                    <button className="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                    onMouseDown={(event) => {
+                        handleLogOut()
+                    }}> Log out</button>
                 </li>
             </ul>
         </div>
