@@ -43,7 +43,7 @@ module.exports = {
       const newRecipe = new Recipe ({
         title: body.title,
         description: body.description,
-        tags: body.tags,
+        tags: JSON.parse(body.tags),
         imgSrc: cloudinaryRes.secure_url,
         cloudinaryId: cloudinaryRes.public_id,
         user: user._id,
