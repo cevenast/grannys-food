@@ -3,6 +3,7 @@ import UserMenu from './UserMenu.js'
 import Hamburger from './Hamburger.js'
 import NavList from './NavList.js'
 import {useState} from 'react'
+import { Link } from 'react-router-dom'
 
 export default function Nav({isLoggedIn}){
 
@@ -16,7 +17,7 @@ export default function Nav({isLoggedIn}){
       user = <UserMenu session={isLoggedIn}/>
     }
     else{
-      user = <Button backgroundColor="bg-[#4a7b8a]" textColor="text-white" link="">Sign In</Button>
+      user = <Link to="login"><Button backgroundColor="bg-[#4a7b8a]" textColor="text-white" link="">Sign In</Button></Link>
      }
 
   ///
@@ -37,7 +38,7 @@ export default function Nav({isLoggedIn}){
 
         {/* Logo */}
         <section className="">
-          <a href="/"><img src="/icons/grandma-nobg.png" alt="grandma logo" className="pl-2 py-2 h-20 sm:h-24"/></a>
+          <Link to="/"><img src="/icons/grandma-nobg.png" alt="grandma logo" className="pl-2 py-2 h-20 sm:h-24"/></Link>
         </section>
 
         {/* Right Side */}

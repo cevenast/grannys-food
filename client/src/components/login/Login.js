@@ -1,9 +1,12 @@
 import { useState } from 'react'
+import { useNavigate} from 'react-router-dom'
 
 export default function Login({ handleLogin, session }){
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
+  const navigate = useNavigate()
+  
 
   const loginForm = (
       <form 
@@ -11,7 +14,13 @@ export default function Login({ handleLogin, session }){
         onSubmit={async (event) => {
           event.preventDefault() // Avoids page reload
           const res = await handleLogin(event, username, password) // Login is handled in App.js
-          res ? setErrorMessage(res) : setErrorMessage('') // If res returns something it means there was an error
+          if (res){
+            setErrorMessage(res)
+          }
+          else{
+            setErrorMessage('') // If res returns something it means there was an error
+            navigate('/')
+          } 
         }}>
 
         <input type="text" name="username" value={username} onChange={(event) => setUsername(event.target.value)}/>

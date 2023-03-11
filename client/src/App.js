@@ -6,6 +6,9 @@ import Gallery from './components/gallery/Gallery.js'
 import Login from './components/login/Login.js'
 import NewRecipe from './components/newRecipe/NewRecipe.js'
 
+import {BrowserRouter as Router, Routes, Route, Link, Navigate, useParams, useNavigate,} from "react-router-dom"
+
+
 function App() {
   const [session, setSession] = useState(false)
 
@@ -38,10 +41,20 @@ function App() {
 
   return (
     <div className="App">
-      <Nav isLoggedIn={session}></Nav>
-      <Login handleLogin={handleLogin} session={session}/>
-      <NewRecipe/>
-      <Gallery/>
+      <Router>
+        <Nav isLoggedIn={session}></Nav>
+
+        <Routes>
+          <Route path="/" element ={<Gallery/>} />
+          <Route path="login" element ={<Login session={session} handleLogin={handleLogin}/>} />
+
+          {/* <Route path="recipes/:id" element={<Recipe/>}}/>}/>  */}
+          {/*   const id = useParams().id ==> useEffect findById(id) */}
+
+          <Route path="/newRecipe" element ={<NewRecipe/>} />
+        </Routes>
+
+      </Router>
 
     </div>
   )

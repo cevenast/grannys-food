@@ -38,7 +38,7 @@ export default function NewRecipe(props){
     const recipe = new FormData()
     recipe.append('title', title)
     recipe.append('description', description)
-    recipe.append('tags', tags)
+    recipe.append('tags', JSON.stringify(tags))
     recipe.append('img', image)
 
     // Takes the token from the localStorage and sets as an Authorization header.
