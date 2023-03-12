@@ -1,6 +1,7 @@
 import { useState} from 'react'
 import axios from 'axios'
 import PostTags from './PostTags.js'
+import { useNavigate} from 'react-router-dom'
 import DragFile from './DragFile.js'
 
 // Try using context hook for the session
@@ -10,6 +11,7 @@ export default function NewRecipe(props){
   const [description, setDescription] = useState('')
   const [tags, setTags] = useState([])
   const [image, setImage] = useState(null)
+  const navigate = useNavigate()
 
   const handleTagClick = (event) => {
 
@@ -46,13 +48,14 @@ export default function NewRecipe(props){
     const config = {
       headers: {Authorization: `Bearer ${token}`}
     }
-
-    await axios.post('/api/recipes', recipe, config)
     setTitle('')
     setDescription('')
     setTags([])
     setImage([])
     
+    await axios.post('/api/recipes', recipe, config)
+
+    navigate('/')
   }
 
   return (
