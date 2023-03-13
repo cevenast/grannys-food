@@ -18,11 +18,7 @@ export default function Gallery(props){
     return(
 
         <section className="grid grid-cols-1 min-[520px]:grid-cols-2 md:grid-cols-3 max-w-3xl mx-auto">
-            {/* {cards}    */}
-            <Card title="Completo Italiano" username="guatonparrillero" tags={['chile','italia','india','argentina']} imgSrc="./completo.jpg" id="bc6e89ac9db79h797" description="Hot dog variation eaten in Chile, usually served chopped tomatoes, avocados, mayonnaise and ketchup."/>
-            <Card title="Baba Ganoush" username="cevenast" tags={['india']} imgSrc="./baba-ganoush.jpg" id="abf12bc21d3123faab1232" description="Smoky, rich, and creamy eggplant dip, mixing tender roasted eggplant and nutty tahini with garlic, citrus, and spices."/>
-            {/* <Card title="Completo Italiano" user="guatonparrillero" tags={['chile','italia']} imgSrc="./completo.jpg" id="bc6e89ac9db79h797" description="Hot dog variation eaten in Chile, usually served with ingredients such as chopped tomatoes, avocados, mayonnaise,"/> */}
-            {cards}
+             {cards}
         </section>
     )
 }
