@@ -3,10 +3,10 @@ import UserMenu from './UserMenu.js'
 import Hamburger from './Hamburger.js'
 import NavList from './NavList.js'
 import {useState} from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 export default function Nav({isLoggedIn}){
-
+  const navigate = useNavigate()
   const [hamburgerShown, setHamburgerShown] = useState(false)
 
   //
@@ -24,13 +24,21 @@ export default function Nav({isLoggedIn}){
   // Makes the dropdown menu appear or disappear on smaller devices 
   ///
 
-    const handleHamburgerBlur = () => {
-      setHamburgerShown(false)
+    const handleHamburgerBlur = (e) => { // When user clicks outside the navlist menu, the menu is hidden
+      if (e.relatedTarget == null || e.relatedTarget.closest('div').id !== 'navlist' ){
+        setHamburgerShown(false)
+      }
     }
     
     const handleHamburgerClick = () => {
       hamburgerShown ? setHamburgerShown(false) : setHamburgerShown(true)
     }
+
+    const handleNavlistClick = (e) => { // When user clicks a link, they're redirected and menu is hidden again
+      const link = e.currentTarget.innerText.replace(' ','').toLowerCase() //
+      navigate(`/${link}`)
+      setHamburgerShown(false)
+  }
   
 
   return(
@@ -45,7 +53,7 @@ export default function Nav({isLoggedIn}){
         <section className="flex justify-end items-center h-8/8 pr-4 pt-1">
 
           {/* List of links*/}
-          <NavList hamburgerShown={hamburgerShown}/>
+          <NavList hamburgerShown={hamburgerShown} handleClick={handleNavlistClick}/>
 
           {/* User Menu */}
           {user} {/* If is Logged in is <UserMenu/>. If not, Sign in <Button>*/}

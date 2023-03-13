@@ -52,7 +52,7 @@ export default function NewRecipe(props){
     setDescription('')
     setTags([])
     setImage([])
-    
+
     await axios.post('/api/recipes', recipe, config)
 
     navigate('/')
@@ -62,16 +62,16 @@ export default function NewRecipe(props){
     <div>
       <form onSubmit={createRecipe}>
         <div>
-          <label for="title" class="form-label">Title</label>
-          <input type="text" name="title" value={title} onChange={(e) => setTitle(e.target.value)}/>
+          <label htmlFor="title">Title</label>
+          <input id="title" type="text" name="title" value={title} onChange={(e) => setTitle(e.target.value)}/>
         </div>
         <div>
-         <label for="title" class="form-label">Description</label>
-          <textarea name="description" value={description} onChange={(e) => setDescription(e.target.value)}/>
+         <label htmlFor="description">Description</label>
+          <textarea id="description" name="description" value={description} onChange={(e) => setDescription(e.target.value)}/>
         </div>
-        <div class="mb-3">
-          <label for="imgUpload" class="form-label">Image</label>
-          <input type="file" class="" accept="image/*" id="imgUpload" name="file" onChange={(e) => setImage(e.target.files[0])}/>
+        <div>
+          <label htmlFor="imgUpload" >Image</label>
+          <input type="file" accept="image/*" id="imgUpload" name="file" onChange={(e) => setImage(e.target.files[0])}/>
         </div>
         <PostTags handleClick={handleTagClick} tags={tags}/>
 
