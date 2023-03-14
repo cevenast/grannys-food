@@ -22,12 +22,25 @@ module.exports = {
   },
 
   //////////////////////
+  //  Get one recipe  //
+  //////////////////////
+
+  getRecipe: async (req, res, next) => {
+    try{
+      const id = req.params.id
+      const recipe = await Recipe.findById(id).lean().populate('user', { username: 1, _id: 1 })
+      res.json(recipe)
+    }
+    catch(err){
+      next(err)
+    }
+  },
+  //////////////////////
   // Post a new recipe//
   //////////////////////
 
   newRecipe: async (req, res, next) => {
     try{
-      console.log('yesss')
       // Client sends filled formulary for the recipe
       const body = req.body
       // Middleware tokenExtractor checks for token in the headers and sets it to req.token
