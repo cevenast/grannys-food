@@ -5,6 +5,7 @@ import Nav from './components/nav/Nav.js'
 import Gallery from './components/gallery/Gallery.js'
 import Login from './components/login/Login.js'
 import NewRecipe from './components/newRecipe/NewRecipe.js'
+import Recipe from './components/recipe/Recipe.js'
 
 import {BrowserRouter as Router, Routes, Route, Link, Navigate, useParams, useNavigate,} from "react-router-dom"
 
@@ -53,7 +54,7 @@ function App() {
           <Route path="/favourites" element="user's saved recipes"/>
           <Route path="/settings" element="configuracion como cambiar la fotito y la clave y alguna que otra cosa" />
 
-          {/* <Route path="recipes/:id" element={<Recipe/>}}/>}/>  */}
+          <Route path="recipes/:id" element={<Recipe/>} />
           {/*   const id = useParams().id ==> useEffect findById(id) */}
 
           <Route path="/newRecipe" element ={<NewRecipe/>} />

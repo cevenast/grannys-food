@@ -42,7 +42,7 @@ export default function Nav({isLoggedIn}){
   
 
   return(
-      <nav className="flex justify-between max-w-3xl mx-auto">
+      <nav className="flex justify-between max-w-3xl mx-auto pb-8">
 
         {/* Logo */}
         <section className="">
