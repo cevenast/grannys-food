@@ -7,7 +7,7 @@ import Login from './components/login/Login.js'
 import NewRecipe from './components/newRecipe/NewRecipe.js'
 import Recipe from './components/recipe/Recipe.js'
 
-import {BrowserRouter as Router, Routes, Route, Link, Navigate, useParams, useNavigate,} from "react-router-dom"
+import {BrowserRouter as Router, Routes, Route,} from "react-router-dom"
 
 
 function App() {
@@ -47,15 +47,15 @@ function App() {
 
         <Routes>
           <Route path="/" element ={<Gallery/>} />
-          <Route path="login" element ={<Login session={session} handleLogin={handleLogin}/>} />
+          <Route path="/login" element ={<Login session={session} handleLogin={handleLogin}/>} />
+          <Route path="/signup" element ='signup page' /> 
           <Route path="/about" element="something about the site"/>
-          <Route path="/browse" element="some options so the user can browse recipes"/>
+          <Route path="/browse" element="some options so the user can browse recipes MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM"/>
           <Route path="/myrecipes" element="user's uploaded recipes"/>
           <Route path="/favourites" element="user's saved recipes"/>
           <Route path="/settings" element="configuracion como cambiar la fotito y la clave y alguna que otra cosa" />
 
           <Route path="recipes/:id" element={<Recipe/>} />
-          {/*   const id = useParams().id ==> useEffect findById(id) */}
 
           <Route path="/newRecipe" element ={<NewRecipe/>} />
         </Routes>
