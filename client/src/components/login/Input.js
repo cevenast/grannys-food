@@ -3,7 +3,6 @@ import { BsEyeFill, BsEyeSlashFill } from 'react-icons/bs'
 
 export default function LoginInput({ inputId, changeHandler, inputType, placeHolder, value }){
   const [passwordVisible, setPasswordVisible] = useState(false)
-  console.log(inputId)
 
   return(
   <label htmlFor={inputId} className="block pb-4 relative">

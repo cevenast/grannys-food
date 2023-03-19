@@ -29,11 +29,11 @@ export default function Login({ handleLogin, session }){
   const form = 
     (
       
-      <AuthContainer title="jajaj">
+      <AuthContainer title="Log In">
         <form action="/login" method="POST" onSubmit={handleLoginSubmit}>
 
           {/* User Input */}
-          <Input inputId="username" changeHandler={setUsername} inputType="text" placeHolder="username123" username={username}/>
+          <Input inputId="username" changeHandler={setUsername} inputType="text" placeHolder="username123" />
           <Input inputId="password" changeHandler={setPassword} inputType="password" placeHolder="********" value={password}/>
           <span className="text-red-600 text-xs">{errorMessage}</span>
           

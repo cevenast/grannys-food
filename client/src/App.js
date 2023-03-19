@@ -4,6 +4,7 @@ import './App.css'
 import Nav from './components/nav/Nav.js'
 import Gallery from './components/gallery/Gallery.js'
 import Login from './components/login/Login.js'
+import Signup from './components/login/Signup'
 import NewRecipe from './components/newRecipe/NewRecipe.js'
 import Recipe from './components/recipe/Recipe.js'
 
@@ -48,7 +49,7 @@ function App() {
         <Routes>
           <Route path="/" element ={<Gallery/>} />
           <Route path="/login" element ={<Login session={session} handleLogin={handleLogin}/>} />
-          <Route path="/signup" element ='signup page' /> 
+          <Route path="/signup" element ={<Signup/>} /> 
           <Route path="/about" element="something about the site"/>
           <Route path="/browse" element="some options so the user can browse recipes MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM"/>
           <Route path="/myrecipes" element="user's uploaded recipes"/>
