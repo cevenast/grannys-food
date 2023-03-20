@@ -7,8 +7,8 @@ const userSchema = new mongoose.Schema({
     trim: true,
     required: true,
     unique: true,
-    minLength: [1, 'username must have at least 1 character'],
-    maxLength: 20
+    minLength: [1, 'Username must have at least 1 character.'],
+    maxLength: [20, 'Username must not exceed 20 characters.']
   },
   passwordHash:{
     type: String,
@@ -16,11 +16,11 @@ const userSchema = new mongoose.Schema({
   },
   uploadedRecipes:[{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Blog' // references Blog style documents thanks to Mongoose
+    ref: 'Recipe' // references Recipe style documents thanks to Mongoose
   }],
   favoriteRecipes:[{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Blog' // references Blog style documents thanks to Mongoose
+    ref: 'Recipe' // references Recipe style documents thanks to Mongoose
   }],
   email:{
     type: String,
@@ -31,7 +31,7 @@ const userSchema = new mongoose.Schema({
       validator: function(v) {
         return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) // eslint-disable-line
       },
-      message: 'Please enter a valid email'
+      message: 'Please enter a valid email.'
     },
     required: true
 
@@ -42,7 +42,7 @@ const userSchema = new mongoose.Schema({
   }
 })
 
-userSchema.plugin(uniqueValidator, { message: 'Username already exists.' }) // verifies that username is unique
+userSchema.plugin(uniqueValidator, { message: '{PATH} already used.' }) // verifies that username is unique
 
 userSchema.set('toJSON', {
   transform: (document, returnedObject) => {

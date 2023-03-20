@@ -51,5 +51,22 @@ module.exports = {
     catch(err){
       next(err)
     }
+  },
+
+  ////////////////////////
+  // Get specific user //
+  //////////////////////
+
+  getUser: async(req, res, next) => {
+    const username = req.params.username
+    console.log(username)
+    try{
+      const user = await User.findOne({ username:username }).lean().populate('uploadedRecipes')
+      res.json(user)
+    }
+    catch(err){
+      console.log(err)
+      res.send(err)
+    }
   }
 }

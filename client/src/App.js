@@ -7,8 +7,10 @@ import Login from './components/login/Login.js'
 import Signup from './components/login/Signup'
 import NewRecipe from './components/newRecipe/NewRecipe.js'
 import Recipe from './components/recipe/Recipe.js'
+import Userpage from './components/userpage/userpage'
 
 import {BrowserRouter as Router, Routes, Route,} from "react-router-dom"
+
 
 
 function App() {
@@ -51,12 +53,13 @@ function App() {
           <Route path="/login" element ={<Login session={session} handleLogin={handleLogin}/>} />
           <Route path="/signup" element ={<Signup/>} /> 
           <Route path="/about" element="something about the site"/>
-          <Route path="/browse" element="some options so the user can browse recipes MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM"/>
+          <Route path="/browse" element="some options so the user can browse recipes"/>
           <Route path="/myrecipes" element="user's uploaded recipes"/>
           <Route path="/favourites" element="user's saved recipes"/>
           <Route path="/settings" element="configuracion como cambiar la fotito y la clave y alguna que otra cosa" />
 
-          <Route path="recipes/:id" element={<Recipe/>} />
+          <Route path="/recipes/:id" element={<Recipe/>} />
+          <Route path="/users/:username" element={<Userpage/>}/>
 
           <Route path="/newRecipe" element ={<NewRecipe/>} />
         </Routes>
