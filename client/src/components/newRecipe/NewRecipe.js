@@ -1,17 +1,33 @@
-import { useState} from 'react'
+import { useState, useEffect } from 'react'
 import axios from 'axios'
 import PostTags from './PostTags.js'
 import { useNavigate} from 'react-router-dom'
+
+import Input from '../login/Input'
+import Textarea from './Textarea'
 import DragFile from './DragFile.js'
 
 // Try using context hook for the session
 
-export default function NewRecipe(props){
+export default function NewRecipe({ isLoggedIn }){
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
+  const [longDescription, setLongDescription] = useState('')
+  const [ingredients, setIngredients] = useState('')
+  const [directions, setDirections] = useState('')
   const [tags, setTags] = useState([])
   const [image, setImage] = useState(null)
   const navigate = useNavigate()
+
+  // useEffect(() => {
+  //   if (!isLoggedIn){
+  //     navigate('/login')
+  //   }
+  // },[])
+
+  // if (!isLoggedIn){
+  //   return ''
+  // }
 
   const handleTagClick = (event) => {
 
@@ -40,6 +56,7 @@ export default function NewRecipe(props){
     const recipe = new FormData()
     recipe.append('title', title)
     recipe.append('description', description)
+    recipe.append('longDescription', longDescription.length > 0 ? longDescription : description)
     recipe.append('tags', JSON.stringify(tags))
     recipe.append('img', image)
 
@@ -59,26 +76,29 @@ export default function NewRecipe(props){
   }
 
   return (
-    <div>
-      <form onSubmit={createRecipe}>
-        <div>
-          <label htmlFor="title">Title</label>
-          <input id="title" type="text" name="title" value={title} onChange={(e) => setTitle(e.target.value)}/>
-        </div>
-        <div>
-         <label htmlFor="description">Description</label>
-          <textarea id="description" name="description" value={description} onChange={(e) => setDescription(e.target.value)}/>
-        </div>
-        <div>
-          <label htmlFor="imgUpload" >Image</label>
-          <input type="file" accept="image/*" id="imgUpload" name="file" onChange={(e) => setImage(e.target.files[0])}/>
-        </div>
-        <PostTags handleClick={handleTagClick} tags={tags}/>
+    <main className="flex justify-center">
+      <div className="py-10 w-80 sm:w-96 flex justify-center">
+        <section className="py-8 px-8 w-full h-108 bg-slate shadow-md shadow-slate-400">
 
-        <button type="submit">SUBMIT RECIPE</button>
-      </form>
-      
-    </div>
+          <form onSubmit={createRecipe} className="flex flex-col justify-center">
+              <Input inputId="title" changeHandler={setTitle} inputType="text" value={title}/>
+              <Textarea inputId="description" changeHandler={setDescription} value={description} maxLength={130} rows={4}/>
+              <Textarea inputId="long-description" changeHandler={setLongDescription} value={longDescription} maxLength={1000} placeholder="You can leave it blank to set it equal to description"/>
+              <Textarea inputId="ingredients" changeHandler={setIngredients} value={ingredients} rows={10} required={true} placeholder="Put each ingredient on its own line"/>
+              <Textarea inputId="directions" changeHandler={setDirections} value={directions} rows={10} required={true} placeholder="Put each direction on its own line"/>
+              <div>
+                <label className="block" htmlFor="imgUpload" >Image</label>
+                <input type="file" accept="image/*" id="imgUpload" name="file" required onChange={(e) => setImage(e.target.files[0])}/>
+              </div>
+
+              <PostTags handleClick={handleTagClick} tags={tags}/>
+
+              <button type="submit">SUBMIT RECIPE</button>
+            </form>
+        
+        </section>
+      </div>
+    </main>
 
   )
 }
