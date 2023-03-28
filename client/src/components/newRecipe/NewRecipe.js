@@ -5,7 +5,6 @@ import { useNavigate} from 'react-router-dom'
 
 import Input from '../login/Input'
 import Textarea from './Textarea'
-import DragFile from './DragFile.js'
 
 // Try using context hook for the session
 
@@ -57,6 +56,8 @@ export default function NewRecipe({ isLoggedIn }){
     recipe.append('title', title)
     recipe.append('description', description)
     recipe.append('longDescription', longDescription.length > 0 ? longDescription : description)
+    recipe.append('ingredients', ingredients)
+    recipe.append('directions', directions)
     recipe.append('tags', JSON.stringify(tags))
     recipe.append('img', image)
 
@@ -77,7 +78,7 @@ export default function NewRecipe({ isLoggedIn }){
 
   return (
     <main className="flex justify-center">
-      <div className="py-10 w-80 sm:w-96 flex justify-center">
+      <div className="py-10 w-11/12  max-w-[40rem] flex justify-center">
         <section className="py-8 px-8 w-full h-108 bg-slate shadow-md shadow-slate-400">
 
           <form onSubmit={createRecipe} className="flex flex-col justify-center">
