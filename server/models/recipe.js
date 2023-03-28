@@ -23,6 +23,18 @@ const recipeSchema = new mongoose.Schema({
     type:String,
     required:true
   },
+  longDescription:{
+    type:String,
+    required:true
+  },
+  ingredients:{
+    type:Array,
+    required:true
+  },
+  directions:{
+    type:Array,
+    required:true,
+  },
   tags:{
     type:Array,
   },

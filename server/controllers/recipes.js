@@ -43,12 +43,12 @@ module.exports = {
     try{
       // Client sends filled formulary for the recipe
       const body = req.body
+      console.log(body)
       // Middleware tokenExtractor checks for token in the headers and sets it to req.token
       // Middleware userExtractor verifies the token and sets the corresponding user to req.user
       const user = await User.findById(req.userId)
 
-      console.log(req.file.path)
-
+      //req.file.path contains the uploaded image
       const cloudinaryRes = await cloudinary.uploader.upload(req.file.path)
 
       console.log(cloudinaryRes)
@@ -56,6 +56,9 @@ module.exports = {
       const newRecipe = new Recipe ({
         title: body.title,
         description: body.description,
+        longDescription:body.longDescription,
+        ingredients: body.ingredients.split('\n'),
+        directions: body.directions.split('\n'),
         tags: JSON.parse(body.tags),
         imgSrc: cloudinaryRes.secure_url,
         cloudinaryId: cloudinaryRes.public_id,
