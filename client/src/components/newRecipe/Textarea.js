@@ -7,7 +7,7 @@ export default function LoginInput({ inputId, changeHandler, placeholder, value,
     <textarea
            id={inputId} 
            name={inputId}
-           maxlength={maxLength}
+           maxLength={maxLength}
            placeholder={placeholder} 
            value={value} 
            onChange={(event) => changeHandler(event.target.value)}

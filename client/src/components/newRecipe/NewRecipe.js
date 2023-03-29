@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import axios from 'axios'
 import PostTags from './PostTags.js'
 import { useNavigate} from 'react-router-dom'
@@ -18,15 +18,6 @@ export default function NewRecipe({ isLoggedIn }){
   const [image, setImage] = useState(null)
   const navigate = useNavigate()
 
-  // useEffect(() => {
-  //   if (!isLoggedIn){
-  //     navigate('/login')
-  //   }
-  // },[])
-
-  // if (!isLoggedIn){
-  //   return ''
-  // }
 
   const handleTagClick = (event) => {
 
@@ -51,27 +42,31 @@ export default function NewRecipe({ isLoggedIn }){
 
   const createRecipe = async (event) => {
     event.preventDefault() // Prevents page from reloading
+    try{
+      const recipe = new FormData()
+      recipe.append('title', title)
+      recipe.append('description', description)
+      recipe.append('longDescription', longDescription.length > 0 ? longDescription : description)
+      recipe.append('ingredients', ingredients)
+      recipe.append('directions', directions)
+      recipe.append('tags', JSON.stringify(tags))
+      recipe.append('img', image)
 
-    const recipe = new FormData()
-    recipe.append('title', title)
-    recipe.append('description', description)
-    recipe.append('longDescription', longDescription.length > 0 ? longDescription : description)
-    recipe.append('ingredients', ingredients)
-    recipe.append('directions', directions)
-    recipe.append('tags', JSON.stringify(tags))
-    recipe.append('img', image)
+      // Takes the token from the localStorage and sets as an Authorization header.
+      const token = JSON.parse(window.localStorage.getItem('loggedGrannyUser')).token
+      const config = {
+        headers: {Authorization: `Bearer ${token}`}
+      }
+      setTitle('')
+      setDescription('')
+      setTags([])
+      setImage([])
 
-    // Takes the token from the localStorage and sets as an Authorization header.
-    const token = JSON.parse(window.localStorage.getItem('loggedGrannyUser')).token
-    const config = {
-      headers: {Authorization: `Bearer ${token}`}
+      await axios.post('/api/recipes', recipe, config)
     }
-    setTitle('')
-    setDescription('')
-    setTags([])
-    setImage([])
-
-    await axios.post('/api/recipes', recipe, config)
+    catch(err) {
+      console.log(err)
+    }
 
     navigate('/')
   }

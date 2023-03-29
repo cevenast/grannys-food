@@ -9,7 +9,7 @@ import NewRecipe from './components/newRecipe/NewRecipe.js'
 import Recipe from './components/recipe/Recipe.js'
 import Userpage from './components/userpage/userpage'
 
-import {BrowserRouter as Router, Routes, Route,} from "react-router-dom"
+import {BrowserRouter as Router, Routes, Route, Navigate} from "react-router-dom"
 
 
 
@@ -61,7 +61,7 @@ function App() {
           <Route path="/recipes/:id" element={<Recipe/>} />
           <Route path="/users/:username" element={<Userpage/>}/>
 
-          <Route path="/newRecipe" element ={<NewRecipe/>} />
+          <Route path="/newRecipe" element ={ session ? <NewRecipe isLoggedIn={session}/> : <Navigate to="/login"/>} />
         </Routes>
 
       </Router>
