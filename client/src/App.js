@@ -1,6 +1,7 @@
-import { useState, useEffect} from 'react'
+import { useState, useEffect } from 'react'
 import axios from 'axios'
 import './App.css'
+import { UserContext } from './components/UserContext.js'
 import Nav from './components/nav/Nav.js'
 import Gallery from './components/gallery/Gallery.js'
 import Login from './components/login/Login.js'
@@ -15,16 +16,23 @@ import {BrowserRouter as Router, Routes, Route, Navigate} from "react-router-dom
 
 function App() {
   const [session, setSession] = useState(false)
+  console.log(session)
 
   // Keeps the user logged in between browser sessions
   useEffect(() => {
       // If session is stored in localstorage, sets the session state to that value
     const currentSessionJSON = window.localStorage.getItem('loggedGrannyUser')
     if (currentSessionJSON){ // If there's a session stored, sets it to the state as an object
-      const session = JSON.parse(currentSessionJSON)
-      setSession(session)
+      setSession(JSON.parse(currentSessionJSON))
+    }
+    else{
+      setSession(null)
     }
   }, [])
+
+  if (session === false){
+    return <h1>Loading...</h1>
+  }
 
   // // If username and password are valid, the username and token are set localStorage and state
   const handleLogin = async (event,username,password) => {
@@ -46,24 +54,25 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <Nav isLoggedIn={session}></Nav>
+        <UserContext.Provider value={{ session, setSession }}>
+          <Nav></Nav>
 
-        <Routes>
-          <Route path="/" element ={<Gallery/>} />
-          <Route path="/login" element ={<Login session={session} handleLogin={handleLogin}/>} />
-          <Route path="/signup" element ={<Signup/>} /> 
-          <Route path="/about" element="something about the site"/>
-          <Route path="/browse" element="some options so the user can browse recipes"/>
-          <Route path="/myrecipes" element="user's uploaded recipes"/>
-          <Route path="/favourites" element="user's saved recipes"/>
-          <Route path="/settings" element="configuracion como cambiar la fotito y la clave y alguna que otra cosa" />
+          <Routes>
+            <Route path="/" element ={<Gallery/>} />
+            <Route path="/login" element ={<Login session={session} handleLogin={handleLogin}/>} />
+            <Route path="/signup" element ={<Signup/>} /> 
+            <Route path="/about" element="something about the site"/>
+            <Route path="/browse" element="some options so the user can browse recipes"/>
+            <Route path="/myrecipes" element="user's uploaded recipes"/>
+            <Route path="/favourites" element="user's saved recipes"/>
+            <Route path="/settings" element="configuracion como cambiar la fotito y la clave y alguna que otra cosa" />
 
-          <Route path="/recipes/:id" element={<Recipe/>} />
-          <Route path="/users/:username" element={<Userpage/>}/>
+            <Route path="/recipes/:id" element={<Recipe/>} />
+            <Route path="/users/:username" element={<Userpage/>}/>
 
-          <Route path="/newRecipe" element ={ session ? <NewRecipe isLoggedIn={session}/> : <Navigate to="/login"/>} />
-        </Routes>
-
+            <Route path="/newRecipe" element ={ session ? <NewRecipe/> : <Navigate to="/login"/>} />
+          </Routes>
+        </UserContext.Provider>
       </Router>
 
     </div>
