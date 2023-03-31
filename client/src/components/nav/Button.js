@@ -1,4 +1,4 @@
-export default function Nav({color, type, children}){
+export default function Nav({color, type, children, disabled}){
     
     // A color palette is asigned depending on the color.
     const buttonPalette = {
@@ -24,7 +24,8 @@ export default function Nav({color, type, children}){
 
     return(
 
-                <button type={type} 
+                <button type={type}
+                        disabled={disabled}
                         className={`${palette.bg} ${palette.text} sm:mt-0 sm:mr-0 mb-3 py-2 px-4 rounded-xl font-semibold
                                     ${palette.hoverBg} sm:hover:${palette.hoverText}
                                     mt-2 mr-4 `

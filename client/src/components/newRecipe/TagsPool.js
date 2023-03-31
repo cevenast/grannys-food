@@ -3,16 +3,10 @@ import PostTag, {tags} from './PostTag'
 export default function AllTags({ handleClick, selectedTags }){
 
   // Gets the country tags and the diet tags and creates an array of PostTag components for each
-  let countryTags = []
-  for (let tag of Object.keys(tags.country)){
-    countryTags.push(<PostTag tag={tag} selectedTags={selectedTags}/>)
-  }
-    // Creates [(Chile) (Argentina) (Alemania)....]
-  let dietTags = []
-  for (let tag of Object.keys(tags.diet)){
-    dietTags.push(<PostTag tag={tag} selectedTags={selectedTags}/>)
-  }
-    // Creates [(Vegan) (GlutenFree) ...]
+
+  const countryTags = Object.keys(tags.country).map((tag, index) => <PostTag tag={tag} selectedTags={selectedTags} key={index}/> )
+  const dietTags = Object.keys(tags.diet).map((tag, index) => <PostTag tag={tag} selectedTags={selectedTags} key={index}/>)
+
 
   return (
   <fieldset className="w-full text-center flex justify-center flex-wrap pb-20"

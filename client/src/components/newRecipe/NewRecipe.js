@@ -1,14 +1,13 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import PostTags from './PostTags.js'
-import { useNavigate} from 'react-router-dom'
-
+import TagsPool from './TagsPool.js'
+import Button from '../nav/Button'
 import Input from '../login/Input'
 import Textarea from './Textarea'
+import LoadingSpinner from '../loadingSpinner/LoadingSpinner.js'
 
-// Try using context hook for the session
-
-export default function NewRecipe({ isLoggedIn }){
+export default function NewRecipe(){
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [longDescription, setLongDescription] = useState('')
@@ -16,8 +15,9 @@ export default function NewRecipe({ isLoggedIn }){
   const [directions, setDirections] = useState('')
   const [tags, setTags] = useState([])
   const [image, setImage] = useState(null)
+  const [loading, setLoading] = useState(false)
+  const [errorMessage, setErrorMessage] = useState('')
   const navigate = useNavigate()
-
 
   const handleTagClick = (event) => {
 
@@ -26,11 +26,15 @@ export default function NewRecipe({ isLoggedIn }){
     }
     else{ // If it does, takes the value of that button
       const clickedTag = event.target.closest('button').value
-      console.log(clickedTag)
       if (!tags.includes(clickedTag)){ // If the value is not in the tags state array, it pushes it
-        const currentTags = [...tags]
-        currentTags.push(clickedTag)
-        setTags(currentTags)
+        if (tags.length < 5){
+          const currentTags = [...tags]
+          currentTags.push(clickedTag)
+          setTags(currentTags)
+        }
+        else{
+          alert('You cannot use more than 5 tags')
+        }
       }
       else{ // If the value is already in the tags state array, it removes it.
         const index = tags.indexOf(clickedTag)
@@ -42,6 +46,7 @@ export default function NewRecipe({ isLoggedIn }){
 
   const createRecipe = async (event) => {
     event.preventDefault() // Prevents page from reloading
+    setLoading(true)
     try{
       const recipe = new FormData()
       recipe.append('title', title)
@@ -57,24 +62,25 @@ export default function NewRecipe({ isLoggedIn }){
       const config = {
         headers: {Authorization: `Bearer ${token}`}
       }
-      setTitle('')
-      setDescription('')
-      setTags([])
-      setImage([])
 
       await axios.post('/api/recipes', recipe, config)
+      navigate('/')
     }
     catch(err) {
       console.log(err)
+      setErrorMessage('Unable to upload recipe')
+      setTimeout(() => setErrorMessage(''), 3000)
     }
-
-    navigate('/')
+    finally{
+      setLoading(false)
+    }
   }
 
   return (
     <main className="flex justify-center">
       <div className="py-10 w-11/12  max-w-[40rem] flex justify-center">
         <section className="py-8 px-8 w-full h-108 bg-slate shadow-md shadow-slate-400">
+          <h2 className="text-3xl pb-8">Add New Recipe</h2>
 
           <form onSubmit={createRecipe} className="flex flex-col justify-center">
               <Input inputId="title" changeHandler={setTitle} inputType="text" value={title}/>
@@ -87,13 +93,22 @@ export default function NewRecipe({ isLoggedIn }){
                 <input type="file" accept="image/*" id="imgUpload" name="file" required onChange={(e) => setImage(e.target.files[0])}/>
               </div>
 
-              <PostTags handleClick={handleTagClick} tags={tags}/>
+              <TagsPool handleClick={handleTagClick} selectedTags={tags}/>
 
-              <button type="submit">SUBMIT RECIPE</button>
+              <Button type="submit" color="blue" textColor="text-white" disabled={loading}>Submit Recipe</Button>
             </form>
         
         </section>
       </div>
+  
+      {loading && 
+            <div className="w-full h-screen bg-slate-100/50 fixed -top-10 flex flex-column justify-center items-center">
+               <div className="text-4xl "><LoadingSpinner/></div>
+            </div>}
+      {errorMessage &&
+                  <div className="w-full h-screen bg-slate-100/50 fixed top-0 flex flex-column justify-center items-center">
+                  <p className="text-4xl ">{errorMessage}</p>
+               </div>}
     </main>
 
   )
