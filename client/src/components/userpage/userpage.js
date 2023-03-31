@@ -14,7 +14,7 @@ export default function Userpage(props){
       .then(res => res.data)
       .then(data => setUser(data))
       .catch(err => console.log(err))
-  },[])
+  },[username])
 
   // If request isn't finished, return blank page
   if (!user){

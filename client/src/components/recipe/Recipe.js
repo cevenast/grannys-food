@@ -11,7 +11,7 @@ export default function Recipe(){
       .then(res => res.data)
       .then(recipeInfo => setRecipe(recipeInfo))
       .catch(err => console.log(err))
-  }, [])
+  }, [id]) //Passing id even if it's not going to change
 
   if (recipe === ''){ // Don't show anything until data has been received
     return ''
