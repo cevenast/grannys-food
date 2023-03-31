@@ -15,7 +15,7 @@ export default function UserMenu(){
     }
 
     if (!session){
-        return <Link to="login"><Button backgroundColor="bg-[#4a7b8a]" textColor="text-white">Sign In</Button></Link>
+        return <Link to="login"><Button color="blue">Sign In</Button></Link>
     }
 
 
