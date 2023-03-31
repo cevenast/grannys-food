@@ -16,12 +16,13 @@ export default function Userpage(props){
       .catch(err => console.log(err))
   },[])
 
-
+  // If request isn't finished, return blank page
   if (!user){
     return ''
   }
 
-  function G(){
+  // Grabs the recipes from the user information and creates a gallery with Cards
+  function UserGallery(){
     const cards = user.uploadedRecipes.map(recipe => <Card title={recipe.title} username={user.username} tags={recipe.tags} imgSrc={recipe.imgSrc} id={recipe._id} description={recipe.description} key={recipe._id}/>)
     return(
       <section className="grid grid-cols-1 min-[520px]:grid-cols-2 md:grid-cols-3 max-w-3xl mx-auto">
@@ -31,15 +32,17 @@ export default function Userpage(props){
   }
 
   return(
-    <>
-    <main className="flex justify-left max-w-3xl mx-auto pl-4">
-      <div className="flex justify-start items-center">
-        <span className="inline-block w-16 h-16 bg-black rounded-full"></span>
-        <h1 className="pl-8 text-4xl">{user.username}</h1>
-      </div>
-    </main>
+    <main className="max-w-3xl mx-auto pl-4">
 
-    {user && <G/>}
-    </>
+      <div className="flex justify-start items-center  pb-16">
+        {/* Image */}
+        <span className="inline-block w-8 h-8 sm:w-16 sm:h-16 bg-black rounded-full"></span>
+        {/* Username */}
+        <h1 className="text-xl pl-3 pb-2 sm:pl-8 sm:pb-4 sm:text-4xl ">{user.username}</h1>
+      </div>
+
+      {/* Recipes */}
+      <UserGallery/>
+    </main>
   )
 }

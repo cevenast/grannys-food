@@ -8,7 +8,7 @@ export default function Tag({tag}){
         return undefined
     }
     // If tag exists, return the tag with a link
-    return( <Link href={`/q?tags=${tag}`}>
+    return( <Link to={`/q?tags=${tag}`}>
             <span className={`${tagInfo.color} ${tagInfo.textColor} w-10 h-6 px-4 mr-2 rounded-xl text-sm font-bold hover:${tagInfo.hoverColor}`}>
                 {tagInfo.name}
             </span>
