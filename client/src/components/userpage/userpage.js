@@ -1,20 +1,24 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { useParams } from 'react-router-dom'
+import { UserContext } from '../UserContext'
 import axios from 'axios'
 
 import Card from '../gallery/Card'
 
-export default function Userpage(props){
+export default function Userpage(){
   const [user, setUser] = useState(null)
-
+  const { session } = useContext(UserContext)
   const username = useParams().username
 
   useEffect(() => { // Requests user information on pageload
-    axios.get(`/api/users/${username}`)
+
+    const config = session ? { headers: {Authorization: `Bearer ${session.token}`} } : null
+
+    axios.get(`/api/users/${username}`, config)
       .then(res => res.data)
       .then(data => setUser(data))
       .catch(err => console.log(err))
-  },[username])
+  },[session, username])
 
   // If request isn't finished, return blank page
   if (!user){
@@ -23,7 +27,17 @@ export default function Userpage(props){
 
   // Grabs the recipes from the user information and creates a gallery with Cards
   function UserGallery(){
-    const cards = user.uploadedRecipes.map(recipe => <Card title={recipe.title} username={user.username} tags={recipe.tags} imgSrc={recipe.imgSrc} id={recipe._id} description={recipe.description} key={recipe._id}/>)
+    const cards = user.uploadedRecipes.map(recipe => 
+      <Card title={recipe.title} 
+            username={user.username} 
+            tags={recipe.tags} 
+            imgSrc={recipe.imgSrc} 
+            id={recipe._id} 
+            description={recipe.description} 
+            isUserFavorite={recipe.isUserFavorite}
+            totalFavorites={recipe.totalFavorites}
+            key={recipe._id}
+      />)
     return(
       <section className="grid grid-cols-1 min-[520px]:grid-cols-2 md:grid-cols-3 max-w-3xl mx-auto">
         {cards}

@@ -1,19 +1,33 @@
-import { useState, useEffect} from 'react'
+import { useState, useEffect, useContext } from 'react'
 import axios from 'axios'
+import { UserContext } from '../UserContext.js'
 import Card from './Card.js'
 
 export default function Gallery(props){
     const [recipes, setRecipes] = useState([])
-
+    const { session } = useContext(UserContext)
     //Get all recipes from db on page load
     useEffect(() => {
-        axios.get('/api/recipes')
-          .then(response => response.data) // notes service module in ./services/notes.js fetches the data
+
+        const config = session ? { headers: {Authorization: `Bearer ${session.token}`} } : null
+
+        axios.get('/api/recipes', config)
+          .then(response => response.data)
           .then(initialRecipes => setRecipes(initialRecipes))
           .catch(err => console.log(err))
-        }, []) // Changes the notes state, rerendering the component
+        }, [session]) // Changes the notes state, rerendering the component
    
-        const cards = recipes.map((recipe, index) => <Card title={recipe.title} username={recipe.user.username} userId={recipe.user.userId} tags={recipe.tags} imgSrc={recipe.imgSrc} id={recipe._id} description={recipe.description} key={index}/>)
+        const cards = recipes.map((recipe, index) => 
+            <Card title={recipe.title} 
+                  username={recipe.user.username} 
+                  tags={recipe.tags} 
+                  imgSrc={recipe.imgSrc} 
+                  id={recipe._id} 
+                  description={recipe.description}
+                  isUserFavorite={recipe.isUserFavorite}
+                  totalFavorites={recipe.totalFavorites}
+                  key={index}
+            />)
 
     return(
 
