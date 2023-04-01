@@ -12,8 +12,21 @@ module.exports = {
   //////////////////////
 
   getAll: async(req,res,next) => {
+
     try{
       const recipes = await Recipe.find({}).sort({ createdAt: 'desc' }).lean().populate('user', { username: 1, _id: 1 })
+
+      recipes.forEach(recipe => {
+
+        // Total number of users that have the recipe as favorite
+        recipe.totalFavorites = recipe.favoriteOf.length
+
+        // Checks for each recipe if the current user has it as favorite or not, and adds boolean to each recipe for the repsonse
+        if (req.userId){ // equals is used to compare with mongo ObjectId
+          recipe.isUserFavorite = recipe.favoriteOf.some(user => user.equals(req.userId))
+        }
+      })
+
       res.json(recipes)
     }
     catch(err){
@@ -63,6 +76,7 @@ module.exports = {
         imgSrc: cloudinaryRes.secure_url,
         cloudinaryId: cloudinaryRes.public_id,
         user: user._id,
+        favoriteOf:[],
         createdAt: new Date()
       })
 

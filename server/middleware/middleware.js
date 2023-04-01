@@ -16,6 +16,7 @@ const tokenExtractor = (req, res, next) => {
 
 // Verifies the token and sets the corresponding user to req.user
 const userExtractor = (req, res, next) => {
+
   const decodedToken = jwt.verify(req.token, process.env.SECRET)
 
   if (decodedToken.id) {
@@ -29,10 +30,30 @@ const userExtractor = (req, res, next) => {
 }
 
 
+const userExtractorLight = (req, res, next) => { // If user is not logged in, no error is returned
+  if (req.get('authorization')) {
+    const decodedToken = jwt.verify(req.token, process.env.SECRET)
+
+    if (decodedToken.id) {
+      req.userId = decodedToken.id
+      req.username = decodedToken.username
+      next()
+    }
+    else{
+      return res.status(401).json({ error: 'token invalid' })
+    }
+  }
+
+  else{
+    next()
+  }
+}
+
+
 
 // 404 Unkown Endpoint
 const unknownEndpoint = (request, response) => {
   response.status(404).send({ error: 'unknown endpoint' })
 }
 
-module.exports = { unknownEndpoint, tokenExtractor, userExtractor }
+module.exports = { unknownEndpoint, tokenExtractor, userExtractor, userExtractorLight }

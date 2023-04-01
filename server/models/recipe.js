@@ -19,6 +19,10 @@ const recipeSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   },
+  favoriteOf:[{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  }],
   description: {
     type:String,
     required:true
