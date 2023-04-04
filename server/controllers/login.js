@@ -28,7 +28,7 @@ module.exports = {
       }
 
       // Generates the token with the info given. Set expiration in 2 hours.
-      const token = jwt.sign(userForToken, process.env.SECRET, { expiresIn:'2h' }) // token is digitally signed
+      const token = jwt.sign(userForToken, process.env.SECRET, { expiresIn:'10s' }) // token is digitally signed
       console.log(`${userForToken.username} has logged in with the following token: ${token}`)
       res.status(200).send({ token, username: user.username, userId:user._id }) // token is sent to the client so that they can have in the headers
     }
@@ -36,5 +36,13 @@ module.exports = {
     catch(err){
       next(err)
     }
+  },
+
+  validateToken: async (req, res) => {
+    // middleware tokenExtractor takes the token from the headers
+    // middleware userExctractor checks if token is valid or expired. If not,
+    res.json('ok')
   }
+
+
 }

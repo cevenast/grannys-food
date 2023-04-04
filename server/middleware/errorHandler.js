@@ -31,6 +31,10 @@ const errorHandler = (error, request, response, next) => {
     return response.status(400).json({ error: 'Invalid Token' })
   }
 
+  else if (error.name === 'TokenExpiredError'){
+    return response.status(401).json({ error: 'The session has expired' })
+  }
+
   else if (error.name === 'TypeError'){
     if (!request.body.username || !request.body.password || !request.body.email){
       console.log('Invalid JSON Format')

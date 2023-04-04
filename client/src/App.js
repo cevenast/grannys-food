@@ -8,7 +8,7 @@ import Signup from './components/login/Signup'
 import NewRecipe from './components/newRecipe/NewRecipe.js'
 import Recipe from './components/recipe/Recipe.js'
 import Userpage from './components/userpage/userpage'
-
+import { isSessionValid } from './components/isSessionValid'
 import {BrowserRouter as Router, Routes, Route, Navigate} from "react-router-dom"
 import Favorites from './components/userpage/Favorites'
 
@@ -16,17 +16,8 @@ import Favorites from './components/userpage/Favorites'
 function App() {
   const [session, setSession] = useState(false)
 
-  // Keeps the user logged in between browser sessions
-  useEffect(() => {
-    // If session is stored in localstorage, sets the session state to that value
-    const currentSessionJSON = window.localStorage.getItem('loggedGrannyUser')
-    if (currentSessionJSON){
-      setSession(JSON.parse(currentSessionJSON))
-    }
-    else{
-      setSession(null)
-    }
-  }, [])
+  // Keeps the user logged in or out between browser sessions
+  useEffect(() => isSessionValid(session, setSession), [session])
 
   // While is being determined if session is stored, loading message briefly appears
   if (session === false){
