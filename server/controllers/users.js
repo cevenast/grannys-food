@@ -62,7 +62,13 @@ module.exports = {
     const username = req.params.username
     console.log(username)
     try{
-      const user = await User.findOne({ username:username }).lean().populate('uploadedRecipes')
+      const user = await User.findOne({ username:username }).lean().
+        // populate('uploadedRecipes')
+        populate({
+          path:'uploadedRecipes',
+          select: '_id title imgSrc description tags totalFavorites isUserFavorite favoriteOf user',
+          populate:{ path:'user', select:'username' }
+        })
 
       user.uploadedRecipes.forEach(recipe => {
 
@@ -73,8 +79,15 @@ module.exports = {
         if (req.userId){ // equals is used to compare with mongo ObjectId
           recipe.isUserFavorite = recipe.favoriteOf.some(user => user.equals(req.userId))
         }
+        delete recipe.favoriteOf
       })
 
+      delete user.passwordHash
+      delete user.favoriteRecipes
+      delete user.email
+      delete user.creationDate
+      delete user.__v
+      delete user._id
       res.json(user)
     }
     catch(err){

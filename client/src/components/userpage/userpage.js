@@ -2,8 +2,7 @@ import { useState, useEffect, useContext } from 'react'
 import { useParams } from 'react-router-dom'
 import { UserContext } from '../UserContext'
 import axios from 'axios'
-
-import Card from '../gallery/Card'
+import UserGallery from './UserGallery'
 
 export default function Userpage(){
   const [user, setUser] = useState(null)
@@ -25,26 +24,6 @@ export default function Userpage(){
     return ''
   }
 
-  // Grabs the recipes from the user information and creates a gallery with Cards
-  function UserGallery(){
-    const cards = user.uploadedRecipes.map(recipe => 
-      <Card title={recipe.title} 
-            username={user.username} 
-            tags={recipe.tags} 
-            imgSrc={recipe.imgSrc} 
-            id={recipe._id} 
-            description={recipe.description} 
-            isUserFavorite={recipe.isUserFavorite}
-            totalFavorites={recipe.totalFavorites}
-            key={recipe._id}
-      />)
-    return(
-      <section className="grid grid-cols-1 min-[520px]:grid-cols-2 md:grid-cols-3 max-w-3xl mx-auto">
-        {cards}
-       </section>
-    )
-  }
-
   return(
     <main className="max-w-3xl mx-auto pl-4">
 
@@ -56,7 +35,7 @@ export default function Userpage(){
       </div>
 
       {/* Recipes */}
-      <UserGallery/>
+      <UserGallery recipes={user.uploadedRecipes}/>
     </main>
   )
 }

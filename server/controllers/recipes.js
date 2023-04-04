@@ -25,6 +25,10 @@ module.exports = {
         if (req.userId){ // equals is used to compare with mongo ObjectId
           recipe.isUserFavorite = recipe.favoriteOf.some(user => user.equals(req.userId))
         }
+
+        delete recipe.cloudinaryId
+        delete recipe.__v
+        delete recipe.favoriteOf
       })
 
       res.json(recipes)
@@ -42,6 +46,9 @@ module.exports = {
     try{
       const id = req.params.id
       const recipe = await Recipe.findById(id).lean().populate('user', { username: 1, _id: 1 })
+      delete recipe.cloudinaryId
+      delete recipe.favoriteOf
+      delete recipe.__v
       res.json(recipe)
     }
     catch(err){
@@ -90,6 +97,41 @@ module.exports = {
 
       res.json(savedRecipe)
     }
+    catch(err){
+      next(err)
+    }
+  },
+
+  getUserFavorites: async (req, res, next ) => {
+    if (!req.userId){
+      res.json('must be logged in')
+    }
+
+    try{
+      const user = await User.findById(req.userId).lean()
+        .populate({
+          path:'favoriteRecipes',
+          populate:{ path:'user', select:'username' } })
+
+      const favorites = user.favoriteRecipes
+      favorites.forEach(recipe => {
+
+        // Total number of users that have the recipe as favorite
+        recipe.totalFavorites = recipe.favoriteOf.length
+        // Checks for each recipe if the current user has it as favorite or not, and adds boolean to each recipe for the repsonse
+        // equals is used to compare with mongo ObjectId
+        recipe.isUserFavorite = recipe.favoriteOf.some(user => user.equals(req.userId))
+
+        // Deletes properties that won't be sent to the server
+        delete recipe.favoriteOf
+        delete recipe.cloudinaryId
+        delete recipe.__v
+
+      })
+      console.log(favorites)
+      res.json(favorites.reverse())
+    }
+
     catch(err){
       next(err)
     }

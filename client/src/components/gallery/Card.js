@@ -27,7 +27,6 @@ export default function Card({title, username, tags, imgSrc, id, description, is
             const res = await axios.put('/api/users/setFavourite', {postId:id}, config)
             // If response is ok, updates favorite state
             setIsFavourite(!isFavourite)
-            console.log('pulento')
             console.log(res)
         }
         catch(err){

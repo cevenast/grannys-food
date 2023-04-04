@@ -5,6 +5,7 @@ const upload = require('../middleware/multer')
 
 
 router.get('/', middleware.tokenExtractor, middleware.userExtractorLight, recipesController.getAll)
+router.get('/myfavorites', middleware.tokenExtractor, middleware.userExtractor, recipesController.getUserFavorites)
 router.get('/:id', recipesController.getRecipe)
 router.post('/', middleware.tokenExtractor, middleware.userExtractor, upload.single('img'), recipesController.newRecipe)
 

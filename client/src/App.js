@@ -10,6 +10,7 @@ import Recipe from './components/recipe/Recipe.js'
 import Userpage from './components/userpage/userpage'
 
 import {BrowserRouter as Router, Routes, Route, Navigate} from "react-router-dom"
+import Favorites from './components/userpage/Favorites'
 
 
 function App() {
@@ -45,7 +46,7 @@ function App() {
             <Route path="/about" element="something about the site"/>
             <Route path="/browse" element="some options so the user can browse recipes"/>
             <Route path="/myrecipes" element="user's uploaded recipes"/>
-            <Route path="/favourites" element="user's saved recipes"/>
+            <Route path="/favorites" element={<Favorites/>}/>
             <Route path="/settings" element="configuracion como cambiar la fotito y la clave y alguna que otra cosa" />
 
             <Route path="/recipes/:id" element={<Recipe/>} />
