@@ -124,7 +124,7 @@ module.exports = {
       console.log('Updated user\'s favorite recipes')
       await recipe.save()
       console.log('Updates recipe\'s favouriteOf list')
-      res.json('ok')
+      res.json(recipe.favoriteOf.length)
     }
     catch(err){
       console.log(err)
