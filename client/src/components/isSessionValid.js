@@ -37,4 +37,25 @@ export const isSessionValid = (session, setSession) => {
       console.log('session set to null because no localstorage was found')
     }
   }
+
+  if (session){
+    const config = { headers: {Authorization: `Bearer ${session.token}`} }
+
+      axios.get(`/login/validateToken`, config) // Server checks if token is valid
+
+      // If token is valid, don't do anything
+      .then(res => console.log('token is valid'))
+
+      // If token expired or invalid, clear localStorage and sets session state to null
+      .catch(err => {
+        if (err.response.status === 401){
+          localStorage.clear()
+          setSession(null)
+          console.log('local storage was cleared and session set to null')
+        }
+        else{
+          console.log('something went wrong')
+        }
+      })
+  }
 }

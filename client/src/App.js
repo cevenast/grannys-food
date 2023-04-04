@@ -37,7 +37,7 @@ function App() {
             <Route path="/about" element="something about the site"/>
             <Route path="/browse" element="some options so the user can browse recipes"/>
             <Route path="/myrecipes" element="user's uploaded recipes"/>
-            <Route path="/favorites" element={<Favorites/>}/>
+            <Route path="/favorites" element={ session ? <Favorites/> : <Navigate to="/login"/>}/>
             <Route path="/settings" element="configuracion como cambiar la fotito y la clave y alguna que otra cosa" />
 
             <Route path="/recipes/:id" element={<Recipe/>} />

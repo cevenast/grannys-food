@@ -1,13 +1,16 @@
-import { useState } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import { UserContext } from '../UserContext.js'
 import TagsPool from './TagsPool.js'
 import Button from '../nav/Button'
 import Input from '../login/Input'
 import Textarea from './Textarea'
 import LoadingSpinner from '../loadingSpinner/LoadingSpinner.js'
+import { isSessionValid } from '../isSessionValid.js'
 
 export default function NewRecipe(){
+  const { session, setSession } = useContext(UserContext)
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [longDescription, setLongDescription] = useState('')
@@ -19,6 +22,10 @@ export default function NewRecipe(){
   const [errorMessage, setErrorMessage] = useState('')
   const navigate = useNavigate()
 
+  // If user expired, logs out
+  useEffect(() => isSessionValid(session, setSession), [session, setSession])
+
+  // Adds and removes selected tags
   const handleTagClick = (event) => {
 
     if (!event.target.closest('button')){ // Checks if element clicked has a button as a parent
@@ -57,10 +64,9 @@ export default function NewRecipe(){
       recipe.append('tags', JSON.stringify(tags))
       recipe.append('img', image)
 
-      // Takes the token from the localStorage and sets as an Authorization header.
-      const token = JSON.parse(window.localStorage.getItem('loggedGrannyUser')).token
+      // Takes the token from the session and sets as an Authorization header.
       const config = {
-        headers: {Authorization: `Bearer ${token}`}
+        headers: {Authorization: `Bearer ${session.token}`}
       }
 
       await axios.post('/api/recipes', recipe, config)

@@ -5,7 +5,8 @@ import Card from './Card.js'
 
 export default function Gallery(props){
     const [recipes, setRecipes] = useState([])
-    const { session } = useContext(UserContext)
+    const { session, setSession } = useContext(UserContext)
+
     //Get all recipes from db on page load
     useEffect(() => {
 
@@ -14,8 +15,13 @@ export default function Gallery(props){
         axios.get('/api/recipes', config)
           .then(response => response.data)
           .then(initialRecipes => setRecipes(initialRecipes))
-          .catch(err => console.log(err))
-        }, [session]) // Changes the notes state, rerendering the component
+          .catch(err => {
+            if (err.response.status === 401){ // If user is not logged in, logs out and rerenders.
+                setSession(null)
+                console.log(err.response.data.error)
+            }
+          })
+        }, [session, setSession]) // Changes the notes state, rerendering the component
    
         const cards = recipes.map((recipe, index) => 
             <Card title={recipe.title} 

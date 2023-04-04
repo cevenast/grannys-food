@@ -6,7 +6,7 @@ import UserGallery from './UserGallery'
 
 export default function Userpage(){
   const [user, setUser] = useState(null)
-  const { session } = useContext(UserContext)
+  const { session, setSession } = useContext(UserContext)
   const username = useParams().username
 
   useEffect(() => { // Requests user information on pageload
@@ -16,8 +16,13 @@ export default function Userpage(){
     axios.get(`/api/users/${username}`, config)
       .then(res => res.data)
       .then(data => setUser(data))
-      .catch(err => console.log(err))
-  },[session, username])
+      .catch(err => {
+        if (err.response.status === 401){ // If user is not logged in, logs out and rerenders.
+          setSession(null)
+          console.log(err.response.data.error)
+        }
+      })
+  },[session, username, setSession])
 
   // If request isn't finished, return blank page
   if (!user){
