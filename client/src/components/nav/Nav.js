@@ -28,7 +28,7 @@ export default function Nav(){
   
 
   return(
-      <nav className="flex justify-between max-w-3xl mx-auto pb-8">
+      <nav className="flex justify-between max-w-7xl mx-auto pb-8">
 
         {/* Logo */}
         <section className="">

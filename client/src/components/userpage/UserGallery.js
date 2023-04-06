@@ -14,7 +14,7 @@ export default function UserGallery({ recipes }){
             key={recipe._id}
       />)
     return(
-      <section className="grid grid-cols-1 min-[520px]:grid-cols-2 md:grid-cols-3 max-w-3xl mx-auto">
+      <section className="grid grid-cols-1 min-[550px]:grid-cols-2 md:grid-cols-3 min-[1024px]:min-w-[800px] max-w-4xl mx-auto">
         {cards}
        </section>
     )

@@ -30,7 +30,7 @@ export default function Userpage(){
   }
 
   return(
-    <main className="max-w-3xl mx-auto pl-4">
+    <main className="max-w-4xl mx-auto pl-4 flex flex-col">
 
       <div className="flex justify-start items-center  pb-16">
         {/* Image */}

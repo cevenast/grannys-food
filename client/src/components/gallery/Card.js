@@ -37,7 +37,7 @@ export default function Card({title, username, tags, imgSrc, id, description, is
     }
 
     return(
-        <section className="flex flex-col flex-wrap justify-start h-[26rem] w-[15.5rem] mx-auto my-10 p-2 pb-0 shadow shadow-slate-400">
+        <section className="flex flex-col flex-wrap justify-start h-[26rem] w-[15.5rem] mx-4 my-10 p-2 pb-0 shadow shadow-slate-400">
             {/* Image */}
             <Link to={`/recipes/${id}`}>
                 <img src={`https://res.cloudinary.com/demo/image/fetch/w_300,f_auto/${imgSrc}`} alt={title} className="w-full h-36"/>

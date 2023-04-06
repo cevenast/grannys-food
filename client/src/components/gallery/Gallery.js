@@ -44,10 +44,10 @@ export default function Gallery(props){
 
     return(
       <section className='flex justify-start'>
-        <div className="lg:-mt-16 w-fit" >
+        <div className="lg:-mt-8 w-fit" >
           <div className="lg:pt-16 fixed lg:sticky top-0 left-0 right-0 py-0 shadow lg:shadow-none">
             <div className="sticky top-0 lg:bottom-0 lg:h-[calc(100vh-4rem)] flex flex-col">
-              <div className="overflow-y-scroll no-bg-scrollbar lg:w-[300px] grow bg-wash dark:bg-wash-dark" style={{overscrollBehavior:'contain'}}>
+              <div className="overflow-y-scroll no-bg-scrollbar   grow bg-wash dark:bg-wash-dark" style={{overscrollBehavior:'contain'}}>
                 <aside className="lg:grow flex-col w-full pb-8 lg:pb-0 lg:max-w-xs z-10 hidden lg:block">
 
                   <section className="w-full lg:h-auto grow pr-0 lg:pr-5 pt-6 lg:pb-16 md:pt-4 lg:pt-4 scrolling-touch scrolling-gpu">
@@ -84,7 +84,7 @@ export default function Gallery(props){
 
 
 
-        <section className="grid grid-cols-1 min-[520px]:grid-cols-2 md:grid-cols-3 max-w-3xl mx-auto">
+        <section className="grid grid-cols-1 min-[550px]:grid-cols-2 md:grid-cols-3 min-[1024px]:min-w-[800px] max-w-4xl mx-auto">
              {cards}
         </section>
       </section>
