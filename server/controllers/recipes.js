@@ -12,20 +12,24 @@ module.exports = {
   //////////////////////
 
   getAll: async(req,res,next) => {
+    const tags = req.query.tags
 
     try{
-      const recipes = await Recipe.find({}).sort({ createdAt: 'desc' }).lean().populate('user', { username: 1, _id: 1 })
+      const recipes = await Recipe
+        .find(tags ? { tags:{ $all:tags } } : {})
+        .sort({ createdAt: 'desc' })
+        .lean()
+        .populate('user', { username: 1, _id: 1 })
 
+      // For each recipe, adds number of users that favorited it, and if the current user has it as favorite
       recipes.forEach(recipe => {
-
         // Total number of users that have the recipe as favorite
         recipe.totalFavorites = recipe.favoriteOf.length
-
         // Checks for each recipe if the current user has it as favorite or not, and adds boolean to each recipe for the repsonse
         if (req.userId){ // equals is used to compare with mongo ObjectId
           recipe.isUserFavorite = recipe.favoriteOf.some(user => user.equals(req.userId))
         }
-
+        // And delete properties that shouldn't be sent to the client
         delete recipe.cloudinaryId
         delete recipe.__v
         delete recipe.favoriteOf

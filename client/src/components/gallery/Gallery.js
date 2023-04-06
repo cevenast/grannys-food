@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import axios from 'axios'
 import { UserContext } from '../UserContext.js'
 import Card from './Card.js'
@@ -6,13 +7,16 @@ import Card from './Card.js'
 export default function Gallery(props){
     const [recipes, setRecipes] = useState([])
     const { session, setSession } = useContext(UserContext)
+    const [searchParams] = useSearchParams()
+    const params = searchParams.getAll("tags")
+    const tags = params.join('&tags=')
 
     //Get all recipes from db on page load
     useEffect(() => {
 
         const config = session ? { headers: {Authorization: `Bearer ${session.token}`} } : null
 
-        axios.get('/api/recipes', config)
+        axios.get(`/api/recipes/?tags=${tags}`, config)
           .then(response => response.data)
           .then(initialRecipes => setRecipes(initialRecipes))
           .catch(err => {
@@ -21,7 +25,7 @@ export default function Gallery(props){
                 console.log(err.response.data.error)
             }
           })
-        }, [session, setSession]) // Changes the notes state, rerendering the component
+        }, [session, setSession, tags]) // Changes the notes state, rerendering the component
    
         const cards = recipes.map((recipe, index) => 
             <Card title={recipe.title} 
