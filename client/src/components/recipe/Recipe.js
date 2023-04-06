@@ -18,8 +18,8 @@ export default function Recipe(){
   }
 
   const username = recipe.user.username
-  const ingredients = recipe.ingredients.map(ingredient => <li className='w-full sm:w-1/2 md:w-1/3 py-0.5 '>{ingredient}</li>)
-  const directions = recipe.directions.map(direction => <li className='w-full py-4 leading-7 '>{direction}</li> )
+  const ingredients = recipe.ingredients.map((ingredient, index) => <li key={index} className='w-full sm:w-1/2 md:w-1/3 py-0.5 '>{ingredient}</li>)
+  const directions = recipe.directions.map((direction, index) => <li key={index}className='w-full py-4 leading-7 '>{direction}</li> )
   const date = (new Date(recipe.createdAt)).toDateString().slice(3) // sets creation date to Jan 01 2023 format
 
   return(
