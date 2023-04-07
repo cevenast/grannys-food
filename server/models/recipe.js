@@ -23,6 +23,10 @@ const recipeSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   }],
+  favoriteCount:{
+    type: Number,
+    required: true
+  },
   description: {
     type:String,
     required:true

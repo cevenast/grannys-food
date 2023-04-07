@@ -1,5 +1,4 @@
 import { useState, useEffect, useContext } from 'react'
-import { useSearchParams } from 'react-router-dom'
 import axios from 'axios'
 import { UserContext } from '../UserContext.js'
 import Card from './Card.js'
@@ -14,11 +13,11 @@ export default function Gallery(){
   const { session, setSession } = useContext(UserContext)
   const [active, setActive] = useState({country:false, diet:false})
   const [selectedTags, setSelectedTags] = useState([])
-  const [sort, setSort] = useState('date-ascending')
+  const [sort, setSort] = useState('createdAt:desc')
 
   //Get all recipes from db on page load
   useEffect(() => {
-    const tagsParams = selectedTags.join('$tag=')
+    const tagsParams = selectedTags.join('&tag=')
     const config = session ? { headers: {Authorization: `Bearer ${session.token}`} } : null
 
     axios.get(`/api/recipes/?tag=${tagsParams}&sort=${sort}`, config)
@@ -30,7 +29,7 @@ export default function Gallery(){
             console.log(err.response.data.error)
         }
       })
-  }, [session, setSession, selectedTags]) // Changes the notes state, rerendering the component
+  }, [session, setSession, selectedTags, sort]) // Changes the notes state, rerendering the component
   
   // Shows and hides tags in the side menu
   const handleTabClick = (event) => {
@@ -76,7 +75,7 @@ export default function Gallery(){
             description={recipe.description}
             isUserFavorite={recipe.isUserFavorite}
             totalFavorites={recipe.totalFavorites}
-            key={index}
+            key={recipe._id}
       />)
 
   return(
@@ -101,9 +100,22 @@ export default function Gallery(){
         </section>
       </SideMenu>
       
+      <section className="mx-auto">
+        <section className="flex justify-end space-x-4">
+          <span>Sort by</span>
+          <select className="focus:ring-0 focus:ring-offset-0" onChange={(e) => setSort(e.currentTarget.value)}>
+            <option value="createdAt:desc">Newest first</option>
+            <option value="createdAt:asc">Oldest first</option>
+            <option value="title:desc">Title from a to z</option>
+            <option value="title:asc">Title from z to a</option>
+            <option value="favoriteCount:desc">Most times favorite</option>
+            <option value="favoriteCount:asc">Least times favorite</option>
+          </select>
+        </section>
 
-      <section className="grid grid-cols-1 min-[550px]:grid-cols-2 md:grid-cols-3 min-[1024px]:min-w-[800px] max-w-4xl mx-auto">
-            {cards}
+        <section className="grid grid-cols-1 min-[550px]:grid-cols-2 md:grid-cols-3 min-[1024px]:min-w-[800px] max-w-4xl mx-auto">
+              {cards}
+        </section>
       </section>
     </section>
   )

@@ -63,7 +63,6 @@ module.exports = {
     console.log(username)
     try{
       const user = await User.findOne({ username:username }).lean().
-        // populate('uploadedRecipes')
         populate({
           path:'uploadedRecipes',
           select: '_id title imgSrc description tags totalFavorites isUserFavorite favoriteOf user',
@@ -112,10 +111,12 @@ module.exports = {
       if (user.favoriteRecipes.includes(postId)){ // If the recipe is not in favorites, filters the array.
         user.favoriteRecipes = user.favoriteRecipes.filter(id => id != postId)
         recipe.favoriteOf = recipe.favoriteOf.filter(id => id != req.userId)
+        recipe.favoriteCount += -1
       }
       else{ // If it's already in favorites, filters the array.
         user.favoriteRecipes.push(postId)
         recipe.favoriteOf.push(req.userId)
+        recipe.favoriteCount += 1
       }
 
       console.log(user.favoriteRecipes)

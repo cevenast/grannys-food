@@ -1,5 +1,3 @@
-import { Link } from 'react-router-dom'
-
 export default function Tag({tag}){
 
     // If tag doesn't exist, don't return
@@ -8,11 +6,12 @@ export default function Tag({tag}){
         return undefined
     }
     // If tag exists, return the tag with a link
-    return( <Link to={`/q?tags=${tag}`}>
+    return( 
+        <button className="h-fit">
             <span className={`${tagInfo.color} ${tagInfo.textColor} w-10 h-6 px-4 mr-2 rounded-xl text-sm font-bold hover:${tagInfo.hoverColor}`}>
                 {tagInfo.name}
             </span>
-            </Link>
+        </button>
     )
 }
 

@@ -14,11 +14,14 @@ module.exports = {
   getAll: async(req,res,next) => {
 
     const tags = req.query.tag
+    let sort = req.query.sort.split(':')
+    const sortOption = {}
+    sortOption[sort[0]] = sort[1]
 
     try{
       const recipes = await Recipe
         .find(tags ? { tags:{ $all:tags } } : {})
-        .sort({ createdAt: 'desc' })
+        .sort(sortOption)
         .lean()
         .populate('user', { username: 1, _id: 1 })
 
@@ -79,7 +82,7 @@ module.exports = {
       console.log(cloudinaryRes)
 
       const newRecipe = new Recipe ({
-        title: body.title,
+        title: body.title[0] + body.slice[1], // Ensures uppercase first
         description: body.description,
         longDescription:body.longDescription,
         ingredients: body.ingredients.split('\n'),
@@ -89,6 +92,7 @@ module.exports = {
         cloudinaryId: cloudinaryRes.public_id,
         user: user._id,
         favoriteOf:[],
+        favoriteCount:0,
         createdAt: new Date()
       })
 
