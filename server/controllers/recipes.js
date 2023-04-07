@@ -12,7 +12,8 @@ module.exports = {
   //////////////////////
 
   getAll: async(req,res,next) => {
-    const tags = req.query.tags
+
+    const tags = req.query.tag
 
     try{
       const recipes = await Recipe

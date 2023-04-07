@@ -1,4 +1,3 @@
-import PostTag, {tags} from './PostTag'
 import CountryTags from './CountryTags'
 import DietTags from './DietTags'
 

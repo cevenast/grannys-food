@@ -1,4 +1,3 @@
-import CountryTags from "../newRecipe/CountryTags"
 import { RiArrowDownSLine, RiArrowRightSLine } from "react-icons/ri"
 
 export default function SideMenuTab({ title, handleClick, isActive,  }) {
@@ -9,9 +8,6 @@ export default function SideMenuTab({ title, handleClick, isActive,  }) {
         <span>{title}</span>
         <span>{isActive ? <RiArrowDownSLine size="1.8em"/> : <RiArrowRightSLine size="1.8em"/>}</span>
       </button>
-      <div className="flex justify-evenly flex-wrap">
-        {isActive && <CountryTags selectedTags={['chile']} size='small'/>}
-      </div>
     </li>
   )
 }

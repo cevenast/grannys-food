@@ -31,7 +31,7 @@ function App() {
           <Nav/>
 
           <Routes>
-            <Route path={"/:q?"} element ={<Gallery/>} />
+            <Route path={"/:?"} element ={<Gallery/>} />
             <Route path="/login" element ={<Login/>} />
             <Route path="/signup" element ={ session ? `Already logged in as ${session.username}`:<Signup/>} /> 
             <Route path="/about" element="something about the site"/>
