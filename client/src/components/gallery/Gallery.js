@@ -14,6 +14,7 @@ export default function Gallery(){
   const [active, setActive] = useState({country:false, diet:false})
   const [selectedTags, setSelectedTags] = useState([])
   const [sort, setSort] = useState('createdAt:desc')
+  const [showSideMenu, setShowSideMenu] = useState(false)
 
   //Get all recipes from db on page load
   useEffect(() => {
@@ -81,7 +82,7 @@ export default function Gallery(){
   return(
     <section className='flex justify-start'>
       
-      <SideMenu>
+      <SideMenu show={showSideMenu} toggleShow={setShowSideMenu}>
         <section className="lg:h-auto grow pr-0 lg:pr-5 pt-6 lg:pb-16 md:pt-4 lg:pt-4 scrolling-touch scrolling-gpu">
           <ul className="">
             <li> <RiFilter3Line size="2em" className="m-4"/> </li>
@@ -100,17 +101,24 @@ export default function Gallery(){
         </section>
       </SideMenu>
       
-      <section className="mx-auto">
-        <section className="flex justify-end space-x-4">
-          <span>Sort by</span>
-          <select className="focus:ring-0 focus:ring-offset-0" onChange={(e) => setSort(e.currentTarget.value)}>
-            <option value="createdAt:desc">Newest first</option>
-            <option value="createdAt:asc">Oldest first</option>
-            <option value="title:desc">Title from a to z</option>
-            <option value="title:asc">Title from z to a</option>
-            <option value="favoriteCount:desc">Most times favorite</option>
-            <option value="favoriteCount:asc">Least times favorite</option>
-          </select>
+      <section className="w-full md:w-fit mx-auto">
+        
+        <section className="flex justify-between space-x-4">
+          <div className=''>
+            {!showSideMenu && <button onClick={() => setShowSideMenu(!showSideMenu)}><RiFilter3Line size="2em" className="ml-4 mt-4 lg:hidden"/></button>}
+          </div>
+          <div className='align-middle flex flex-col pr-4'>
+            <label htmlFor="sort">Sort by</label>
+            <select className="focus:ring-0 focus:ring-offset-0" name="sort" id="sort" defaultValue="createdAt:desc" onChange={(e) => setSort(e.currentTarget.value)}>
+              <option value="createdAt:desc">Newest first</option>
+              <option value="createdAt:asc">Oldest first</option>
+              <option value="title:asc">Title from a to z</option>
+              <option value="title:desc">Title from z to a</option>
+              <option value="favoriteCount:desc">Most times favorite</option>
+              <option value="favoriteCount:asc">Least times favorite</option>
+            </select>
+          </div>
+
         </section>
 
         <section className="grid grid-cols-1 min-[550px]:grid-cols-2 md:grid-cols-3 min-[1024px]:min-w-[800px] max-w-4xl mx-auto">
