@@ -82,7 +82,7 @@ module.exports = {
       console.log(cloudinaryRes)
 
       const newRecipe = new Recipe ({
-        title: body.title[0] + body.title.slice(1), // Ensures uppercase first
+        title: body.title[0].toUpperCase() + body.title.slice(1), // Ensures uppercase first
         description: body.description,
         longDescription:body.longDescription,
         ingredients: body.ingredients.split('\n'),
