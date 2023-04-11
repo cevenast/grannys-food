@@ -11,7 +11,6 @@ export default function NavList({hamburgerShown, handleClick}){
                             sm:static sm:flex sm:flex-row sm:w-full sm:shadow-none sm:justify-end sm:h-full sm:pr-4`}>
 
                 <li onClick={handleClick}><Button backgroundColor="" textColor="">About</Button></li>
-                <li onClick={handleClick}><Button backgroundColor="" textColor="" link="#">Browse</Button></li>
                 <li onClick={handleClick}><Button backgroundColor="" textColor="">New Recipe</Button></li>
             </ul>
         </div>
