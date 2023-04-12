@@ -32,6 +32,8 @@ app.use(methodOverride('_method')) //Use forms for put / delete
 app.use('/api/recipes', recipesRoutes)
 app.use('/api/users', usersRoutes)
 app.use('/login', loginRoutes)
+const path = require('path')
+app.get('*', (req, res) => res.sendFile(path.resolve(__dirname,'build','index.html') ))
 
 // Middleware setup for errors
 
