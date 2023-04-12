@@ -12,7 +12,7 @@ const middleware = require('./middleware/middleware')
 const errorHandler = require('./middleware/errorHandler')
 require('./middleware/multer')
 
-require('dotenv').config({ path: './config/.env' }) // Use .env file in config folder
+require('dotenv').config({ path: './config/*' }) // Use .env file in config folder
 
 logger.info('Connecting to MongoDB...')
 connectDB() // Connect to MongoDB
