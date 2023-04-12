@@ -121,7 +121,7 @@ export default function Gallery(){
 
         </section>
 
-        <section className="grid grid-cols-1 min-[550px]:grid-cols-2 md:grid-cols-3 min-[1024px]:min-w-[800px] max-w-4xl mx-auto">
+        <section className="grid grid-cols-1 min-[550px]:grid-cols-2 md:grid-cols-3 min-[1024px]:min-w-[800px] max-w-4xl mx-auto gap-x-3">
               {cards}
         </section>
       </section>
