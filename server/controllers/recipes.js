@@ -1,7 +1,7 @@
 //const cloudinary = require('../middleware/cloudinary')
 //const User = require('../models/User.js')
-const Recipe = require('../models/recipe')
-const User = require('../models/user')
+const Recipe = require('../models/Recipe')
+const User = require('../models/User')
 const cloudinary = require('../middleware/cloudinary')
 
 

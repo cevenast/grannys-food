@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt')
-const User = require('../models/user')
-const Recipe = require('../models/recipe')
+const User = require('../models/User')
+const Recipe = require('../models/Recipe')
 
 module.exports = {
 
