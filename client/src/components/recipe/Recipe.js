@@ -21,6 +21,7 @@ export default function Recipe(){
   const ingredients = recipe.ingredients.map((ingredient, index) => <li key={index} className='w-full sm:w-1/2 md:w-1/3 py-0.5 '>{ingredient}</li>)
   const directions = recipe.directions.map((direction, index) => <li key={index}className='w-full py-4 leading-7 '>{direction}</li> )
   const date = (new Date(recipe.createdAt)).toDateString().slice(3) // sets creation date to Jan 01 2023 format
+  const imgSrcRegex = recipe.imgSrc.match(/(.*upload\/)(.*)/)
 
   return(
     <main className="mx-1">
@@ -58,7 +59,7 @@ export default function Recipe(){
 
           {/* Image */}
           <div className="self-center w-full mx-auto px-2 py-8">
-            <img src={recipe.imgSrc} alt={recipe.title} className="bg-black min-w-[20rem] mx-auto md:max-w-2xl max-h-80"/>
+            <img src={`${imgSrcRegex[1]}c_scale,w_430/${imgSrcRegex[2]}`} alt={recipe.title} className="bg-black min-w-[20rem] mx-auto md:max-w-2xl max-h-80"/>
           </div>
         </section>
         
