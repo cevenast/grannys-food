@@ -32,7 +32,7 @@ export default function Nav(){
 
         {/* Logo */}
         <section className="">
-          <Link to="/"><img src="/icons/grandma-nobg.png" alt="grandma logo" className="pl-2 py-2 h-20 sm:h-24"/></Link>
+          <Link to="/"><img src="/icons/grandma-nobg-100px.png" alt="grandma logo" className="pl-2 py-2 h-20 sm:h-24"/></Link>
         </section>
 
         {/* Right Side */}
