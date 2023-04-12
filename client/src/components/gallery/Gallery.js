@@ -109,7 +109,7 @@ export default function Gallery(){
           </div>
           <div className='align-middle flex flex-col pr-4'>
             <label htmlFor="sort">Sort by</label>
-            <select className="focus:ring-0 focus:ring-offset-0" name="sort" id="sort" defaultValue="createdAt:desc" onChange={(e) => setSort(e.currentTarget.value)}>
+            <select className="border-2 border-slate-200 bg-white p-1" name="sort" id="sort" defaultValue="createdAt:desc" onChange={(e) => setSort(e.currentTarget.value)}>
               <option value="createdAt:desc">Newest first</option>
               <option value="createdAt:asc">Oldest first</option>
               <option value="title:asc">Title from a to z</option>
