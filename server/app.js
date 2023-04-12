@@ -12,10 +12,16 @@ const middleware = require('./middleware/middleware')
 const errorHandler = require('./middleware/errorHandler')
 require('./middleware/multer')
 
-require('dotenv').config({ path: './config/*' }) // Use .env file in config folder
+require('dotenv').config({ path: './config/*' }) // Use all .env files in config folder
+
+// Starts listening after mongo connection is completed
 
 logger.info('Connecting to MongoDB...')
 connectDB() // Connect to MongoDB
+  .then(() => app.listen(process.env.PORT, () => {
+    logger.info(`Server is running on PORT ${process.env.PORT}`)
+  })
+  )
 
 // Middleware
 
