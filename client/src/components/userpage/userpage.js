@@ -34,7 +34,7 @@ export default function Userpage(){
 
       <div className="flex justify-start items-center  pb-16">
         {/* Image */}
-        <span className="inline-block w-8 h-8 sm:w-16 sm:h-16 bg-black rounded-full"></span>
+        <img className="inline-block w-8 h-8 sm:w-16 sm:h-16 bg-black rounded-full" src="https://pporg-cdn.nullcontent.net/monthly_2020_04/1673263168_small.RTDXPortraitFaint.png.782032cddc5ec8aa3cc23fcd22299527.png" alt="User"/>
         {/* Username */}
         <h1 className="text-xl pl-3 pb-2 sm:pl-8 sm:pb-4 sm:text-4xl ">{user.username}</h1>
       </div>

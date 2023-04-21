@@ -10,7 +10,7 @@ export default function NavList({hamburgerShown, handleClick}){
             <ul className={`${!hamburgerShown && 'sr-only'} absolute top-8 -right-24 w-40 flex flex-col bg-white rounded-lg shadow
                             sm:static sm:flex sm:flex-row sm:w-full sm:shadow-none sm:justify-end sm:h-full sm:pr-4`}>
 
-                <li onClick={handleClick}><Button backgroundColor="" textColor="">About</Button></li>
+                {/* <li onClick={handleClick}><Button backgroundColor="" textColor="">About</Button></li> */}
                 <li onClick={handleClick}><Button backgroundColor="" textColor="">New Recipe</Button></li>
             </ul>
         </div>
