@@ -13,7 +13,7 @@ export default function PostTag({ tag, selectedTags, size }){
         {tagInfo.name} 
         
         <span
-              className={`${tagInfo.color} inline-block h-2 w-2 mt-0.5 border-none rounded-xl ml-0.5 duration-200
+              className={` inline-block h-2 w-2 mt-0.5 border-none rounded-xl ml-0.5 duration-200
                         ${isChecked ? 'bg-lime-500' : 'bg-zinc-800' }
                         focus:ring-0 focus:ring-offset-0`}/>
       </button>
@@ -26,7 +26,7 @@ export default function PostTag({ tag, selectedTags, size }){
       {tagInfo.name} 
       
       <span
-            className={`${tagInfo.color} inline-block h-3 w-3 border-none rounded-xl ml-2 duration-200
+            className={` inline-block h-3 w-3 border-none rounded-xl ml-2 duration-200
                        ${isChecked ? 'bg-lime-500' : 'bg-zinc-800' }
                        focus:ring-0 focus:ring-offset-0`}/>
     </button>
