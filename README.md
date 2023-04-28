@@ -18,11 +18,11 @@ The views are handled by React, using modern function components with hooks. The
 
 ## Optimizations
 
-• Implement Google Auth 
-• Allow users to modify their profile, having a description, change profile picture, etc.
-• Improve the design of indivudual recipe page
-• Add comments to individual recipes, allowing users to share pictures of their own preparation!
-• There's some bloated components that could benefit from being broken down into additional components.
-• Move the application into NextJS so that the server-side rendering can improve the SEO.
+* Implement Google Auth 
+* Allow users to modify their profile, having a description, change profile picture, etc.
+* Improve the design of indivudual recipe page
+* Add comments to individual recipes, allowing users to share pictures of their own preparation!
+* There's some bloated components that could benefit from being broken down into additional components.
+* Move the application into NextJS so that the server-side rendering can improve the SEO.
 
 
