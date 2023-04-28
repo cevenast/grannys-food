@@ -3,7 +3,7 @@ Granny's Food provides a simple way to browse and share your family recipes with
 moving away from intricated recipes and favoring everyday ingredients that everyone can find. 
 
 
-**Link to project:** https://https://grannysfood.cyclic.app/
+**Link to project:** https://grannysfood.cyclic.app/
 
 
 ## How It's Made:
